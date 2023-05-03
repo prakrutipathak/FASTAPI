@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pickle
-import numpy as np
 import pandas as pd
+
 app = FastAPI()
 
 
@@ -23,4 +23,8 @@ async def scoring(item: ScoringItem):
     df = pd.DataFrame([item.dict().values()], columns=item.dict().keys())
     yhat = model.predict(df)
     return {"prediction": yhat[0]}
-# uvicorn mlapi:app --reload
+
+
+# uvicorn main:app --reload
+# to define port number
+# uvicorn main:app --reload --port 8000
